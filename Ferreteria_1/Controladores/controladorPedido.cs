@@ -29,9 +29,19 @@ namespace Ferreteria_1.Controladores
         }
 
         public void crearPedido() {
-            this.mod.nuevo();
+
+            if (this.mod.getAll().ElementAt(ModeloPedido.cont).estado == 0)
+            { this.mod.nuevo(1); }
+            
+            
+           
         }
 
+
+        public void actualizarPedido(DateTime fechaActual, DateTime fechaEfectiva, string desc) {
+            int code = ModeloPedido.cont;
+            this.mod.nuevo(fechaActual, fechaEfectiva, desc, code);
+        }
 
       
 
