@@ -13,7 +13,8 @@ namespace Ferreteria_1.Modelo
         public int estado {get; set;}
         public string descripcion { get; set; }
         public void setCod (){
-            this.Cod = ModeloPedido.cont++;
+            ModeloPedido.cont++;
+            this.Cod = ModeloPedido.cont;
         }
 
         public static int cont=0;
@@ -32,11 +33,15 @@ namespace Ferreteria_1.Modelo
         public ModeloPedido nuevo(int estado) {
             ModeloPedido pedido= new ModeloPedido();
             pedido.setCod();
+            pedido.fechaEfectiva = DateTime.Now;
+            pedido.fecha= DateTime.Now;
             pedido.estado = estado;
+            listaPedidos.Add(pedido);
             return pedido;
         }
 
         public ModeloPedido nuevo(DateTime fechaActual, DateTime fechaEfectiva, string desc, int  code) {
+            
             ModeloPedido pedido=this.listaPedidos.Find(x=> x.Cod==code);
             pedido.fechaEfectiva = fechaEfectiva;
             pedido.fecha = fechaActual;

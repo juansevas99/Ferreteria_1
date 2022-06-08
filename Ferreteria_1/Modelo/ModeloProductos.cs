@@ -58,5 +58,10 @@ namespace Ferreteria_1.Modelo
 
             return modelo;
         }
+
+        public override string ToString()
+        {
+            return this.Nombre;
+        }
     }
 }

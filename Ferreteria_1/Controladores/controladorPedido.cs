@@ -28,9 +28,13 @@ namespace Ferreteria_1.Controladores
             return controladorPedido.con;
         }
 
+        public ModeloPedido traerUltimoPedido() {
+           return this.mod.getAll().ElementAt(ModeloPedido.cont - 1);
+        }
+
         public void crearPedido() {
 
-            if (this.mod.getAll().ElementAt(ModeloPedido.cont).estado == 0)
+            if ( ModeloPedido.cont==0 || this.mod.getAll().ElementAt(ModeloPedido.cont-1).estado == 0)
             { this.mod.nuevo(1); }
             
             
@@ -38,9 +42,18 @@ namespace Ferreteria_1.Controladores
         }
 
 
-        public void actualizarPedido(DateTime fechaActual, DateTime fechaEfectiva, string desc) {
-            int code = ModeloPedido.cont;
-            this.mod.nuevo(fechaActual, fechaEfectiva, desc, code);
+        public string[] actualizarPedido(DateTime fechaActual, DateTime fechaEfectiva, string desc) {
+            try
+            {
+                int code = ModeloPedido.cont;
+                ModeloPedido pedido = this.mod.nuevo(fechaActual, fechaEfectiva, desc, code);
+                return new string[] { "1", "Pedido actualizado :: " + pedido.Cod };
+            }
+            catch {
+                return new string[]{ "0", "Algo paso intente de nuevo"};
+            }
+            
+            
         }
 
       

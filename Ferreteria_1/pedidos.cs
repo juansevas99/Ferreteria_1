@@ -13,12 +13,14 @@ namespace Ferreteria_1
     public partial class pedidos : frame
     {
         controladorPedido con;
-        BindingSource binding;
+        ControladorPedidoProducto con3;
         controladorProductos con2;
+        
         public pedidos()
         {
             this.con=controladorPedido.createInstance();
             this.con2 = controladorProductos.createInstance();
+            this.con3 = ControladorPedidoProducto.createInstance();
            
             InitializeComponent();
 
@@ -29,14 +31,25 @@ namespace Ferreteria_1
         private void pedidos_Load(object sender, EventArgs e)
         {
             this.con.crearPedido();
-            this.binding = new BindingSource();
+            BindingSource binding= new BindingSource();
             string name = "";
             this.con2.traerProductosActivos().ForEach(pr =>
             {
                 name = pr.Nombre;
-                this.binding.Add(name);
+                binding.Add(pr);
             });
-            producto.DataSource = this.binding;
+            producto.DataSource = binding;
+            Modelo.ModeloPedido actualPedido=this.con.traerUltimoPedido();
+            descripcion.Text = actualPedido.descripcion;
+            fechaEfectiva.Text = actualPedido.fechaEfectiva.ToString();
+
+            BindingSource binding2 = new BindingSource();
+            this.con3.traerRelaciones().ForEach(rel=>
+            {
+                binding2.Add(rel);
+            });
+            pedidoTable.DataSource = binding2;
+            
             
 
         }
@@ -48,7 +61,16 @@ namespace Ferreteria_1
             DateTime fechaActual= DateTime.Now;
 
 
-            this.con.actualizarPedido(fechaActual,fechaEfectica, des);
+            string[] mess=this.con.actualizarPedido(fechaActual,fechaEfectica, des);
+            MessageBox.Show(mess[1]);
+        }
+
+        private void anadirProducto_Click(object sender, EventArgs e)
+        {
+            Modelo.ModeloProductos selectedProduct=(Modelo.ModeloProductos)producto.SelectedValue;
+            
+            int can = int.Parse(cantidad.Text);
+            this.con3.crearRelacion(selectedProduct, can);
         }
     }
 }
