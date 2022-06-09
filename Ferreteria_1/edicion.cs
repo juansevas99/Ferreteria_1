@@ -13,17 +13,20 @@ namespace Ferreteria_1
 {
     public partial class edicion : frame
     {
+        // binding source para tabla de productos
         private BindingSource bindingSource1 ;
+        // controlador Productos
         controladorProductos con;
         public edicion()
         {
             InitializeComponent();
+            // crea la instancia si aplica
             this.con =controladorProductos.createInstance();
         }
 
         private void edicion_Load(object sender, EventArgs e)
         {
-
+            // crea la vinculacion de la lista de productos con la tabla de productos
             this.bindingSource1 = new BindingSource();
             this.con.traerProductosActivos().ForEach(a =>
             {
@@ -43,9 +46,10 @@ namespace Ferreteria_1
         {
 
         }
-
+        // Añade un producto
         private void crear_Click(object sender, EventArgs e)
         {
+            // se captura cualquier errro de tipo FormatException en caso de que el string no sea aceptado
             try {
                     
                     ModeloProductos nuevo=this.con.crearProducto(nombre.Text,double.Parse(costo.Text));

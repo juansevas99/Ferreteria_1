@@ -8,6 +8,7 @@ namespace Ferreteria_1.Controladores
 {
     internal class controladorPedido
     {
+        // Controladores y Modelos necesarios para este controlador
         private static controladorPedido con;
         private ModeloPedido mod;
         private ModeloPedidoProducto mod_1;
@@ -17,6 +18,8 @@ namespace Ferreteria_1.Controladores
             this.mod = new ModeloPedido();
             this.mod_1 = new ModeloPedidoProducto();
         }
+        // se implementa el patron singleton 
+        // 
         public static controladorPedido createInstance()
         {
 
@@ -27,11 +30,11 @@ namespace Ferreteria_1.Controladores
             }
             return controladorPedido.con;
         }
-
+        // trae el pedido actual
         public ModeloPedido traerUltimoPedido() {
            return this.mod.getAll().ElementAt(ModeloPedido.cont - 1);
         }
-
+        // crea un nuevo pedido 
         public void crearPedido() {
 
             if ( ModeloPedido.cont==0 || this.mod.getAll().ElementAt(ModeloPedido.cont-1).estado == 0)
@@ -42,7 +45,7 @@ namespace Ferreteria_1.Controladores
         }
 
 
-
+        // actualizar un nuevo pedido
         public string[] actualizarPedido(DateTime fechaActual, DateTime fechaEfectiva, string desc) {
             try
             {
@@ -58,7 +61,7 @@ namespace Ferreteria_1.Controladores
         }
 
 
-
+        //envia el pedido. Se cambia el estado del pedido actual a 0, es decir a inactivo
         public void sunmitPedido() {
             this.traerUltimoPedido().estado = 0;
         }
