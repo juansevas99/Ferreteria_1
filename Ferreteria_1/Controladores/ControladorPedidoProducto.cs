@@ -11,12 +11,12 @@ namespace Ferreteria_1.Controladores
         private static ControladorPedidoProducto con;
         
         private ModeloPedidoProducto mod;
-        private ModeloPedido mod2;
+        private controladorPedido con1;
 
         private ControladorPedidoProducto()
         {
             this.mod = new ModeloPedidoProducto();
-            this.mod2 = new ModeloPedido();
+            this.con1 =  controladorPedido.createInstance();
         }
         public static ControladorPedidoProducto createInstance()
         {
@@ -29,9 +29,10 @@ namespace Ferreteria_1.Controladores
             return ControladorPedidoProducto.con;
         }
         public void crearRelacion(ModeloProductos producto, int cantidad) {
-           ModeloPedido pedido=this.mod2.getAll().ElementAt(ModeloPedido.cont - 1);
+           ModeloPedido pedido=this.con1.traerUltimoPedido();
 
             this.mod.nuevo(pedido, producto, cantidad);
+            
         }
         public List<ModeloPedidoProducto> traerRelaciones() {
             return this.mod.getProductos(ModeloPedido.cont);
@@ -39,3 +40,6 @@ namespace Ferreteria_1.Controladores
         }
     }
 }
+
+
+

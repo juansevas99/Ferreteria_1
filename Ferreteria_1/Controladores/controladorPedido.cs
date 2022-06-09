@@ -42,6 +42,7 @@ namespace Ferreteria_1.Controladores
         }
 
 
+
         public string[] actualizarPedido(DateTime fechaActual, DateTime fechaEfectiva, string desc) {
             try
             {
@@ -56,7 +57,14 @@ namespace Ferreteria_1.Controladores
             
         }
 
-      
+
+
+        public void sunmitPedido() {
+            this.traerUltimoPedido().estado = 0;
+        }
+
+
+
 
 
 

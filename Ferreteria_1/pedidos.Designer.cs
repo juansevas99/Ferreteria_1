@@ -45,9 +45,11 @@
             // 
             // pedidoTable
             // 
+            this.pedidoTable.AllowUserToDeleteRows = false;
             this.pedidoTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.pedidoTable.Location = new System.Drawing.Point(357, 288);
+            this.pedidoTable.Location = new System.Drawing.Point(304, 276);
             this.pedidoTable.Name = "pedidoTable";
+            this.pedidoTable.ReadOnly = true;
             this.pedidoTable.RowTemplate.Height = 25;
             this.pedidoTable.Size = new System.Drawing.Size(240, 150);
             this.pedidoTable.TabIndex = 2;
@@ -88,6 +90,7 @@
             this.button2.TabIndex = 8;
             this.button2.Text = "Generar pedido";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // fechaEfectiva
             // 

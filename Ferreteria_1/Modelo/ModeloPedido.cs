@@ -8,7 +8,7 @@ namespace Ferreteria_1.Modelo
 {
     internal class ModeloPedido
     {
-        public List<ModeloPedido> listaPedidos = new List<ModeloPedido>();
+        public  List<ModeloPedido> listaPedidos = new List<ModeloPedido>();
         public int Cod { get; set; }
         public int estado {get; set;}
         public string descripcion { get; set; }
@@ -49,5 +49,9 @@ namespace Ferreteria_1.Modelo
             return pedido;
         }
 
+        public override string ToString()
+        {
+            return this.Cod.ToString();
+        }
     }
 }

@@ -15,7 +15,9 @@ namespace Ferreteria_1
         controladorPedido con;
         ControladorPedidoProducto con3;
         controladorProductos con2;
-        
+        BindingSource binding2;
+
+
         public pedidos()
         {
             this.con=controladorPedido.createInstance();
@@ -43,11 +45,13 @@ namespace Ferreteria_1
             descripcion.Text = actualPedido.descripcion;
             fechaEfectiva.Text = actualPedido.fechaEfectiva.ToString();
 
-            BindingSource binding2 = new BindingSource();
+            this.binding2 = new BindingSource();
             this.con3.traerRelaciones().ForEach(rel=>
             {
                 binding2.Add(rel);
             });
+
+            
             pedidoTable.DataSource = binding2;
             
             
@@ -71,6 +75,25 @@ namespace Ferreteria_1
             
             int can = int.Parse(cantidad.Text);
             this.con3.crearRelacion(selectedProduct, can);
+
+            this.binding2 = new BindingSource();
+            this.con3.traerRelaciones().ForEach(rel =>
+            {
+                binding2.Add(rel);
+            });
+            pedidoTable.DataSource=this.binding2;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            pedidoTable.DataSource = null;
+            fechaEfectiva.Text = DateTime.Now.ToString();
+            descripcion.Text = "";
+
+            this.con.sunmitPedido();
+            this.pedidos_Load(sender, e);
+
+            MessageBox.Show("Pedido Enviado correctamente");
         }
     }
 }
